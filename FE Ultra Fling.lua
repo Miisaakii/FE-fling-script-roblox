@@ -1,8 +1,8 @@
 --Script made by Misaki#9446
 
 local toggle = false --Toggle random teleport and fling
-local speed = 0.1 --Increases/Decreases Speed
-local positionY = 0
+local speed_teleport = 0.2 --Increases/Decreases Speed
+local speed_spin = 500 --Increases/Decreases Speed
 
 local LocalPlayer =  game.Players.LocalPlayer
 local RunService = game:GetService("RunService")
@@ -32,12 +32,12 @@ key.InputBegan:Connect(function(input)
 end)
 
 function fling_script(target)
-    power = 500
     local bambam = Instance.new("BodyThrust")
     bambam.Parent = game.Players.LocalPlayer.Character.HumanoidRootPart
-    bambam.Force = Vector3.new(power,0,power)
+    bambam.Force = Vector3.new(speed_spin,0,speed_spin)
     LocalPlayer.Character.HumanoidRootPart.CFrame = target.Character.HumanoidRootPart.CFrame
     bambam.Location = target.Character.HumanoidRootPart.Position
+    task.wait(speed_teleport)
 end
 
 function random_telport()
@@ -49,7 +49,7 @@ function random_telport()
                         local Target = game.Players:GetPlayers()
                         [math.random(1,#game.Players:GetPlayers())]
                         fling_script(Target)
-                        task.wait(speed)
+                        task.wait(speed_teleport)
                     end)
                 end
             end
